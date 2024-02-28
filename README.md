@@ -1,26 +1,43 @@
-# task-2-expense-book-sails-version
+# Expense Management System (Sails.js Version)
 
-a [Sails v1](https://sailsjs.com) application
+Expense Management System is a web application developed using Sails.js and MongoDB to help users track their expenses.
 
+## Instructions for Running Locally
 
-### Links
+### Prerequisites
 
-+ [Sails framework documentation](https://sailsjs.com/get-started)
-+ [Version notes / upgrading](https://sailsjs.com/documentation/upgrading)
-+ [Deployment tips](https://sailsjs.com/documentation/concepts/deployment)
-+ [Community support options](https://sailsjs.com/support)
-+ [Professional / enterprise options](https://sailsjs.com/enterprise)
+- Node.js installed on your machine
+- MySQL installed and running
 
+### Steps
 
-### Version info
+1. **Clone the repository:**
 
-This app was originally generated on Mon Feb 26 2024 11:05:02 GMT+0530 (India Standard Time) using Sails v1.5.9.
+   ```bash
+   git clone https://github.com/AshishKumarP2003/EMS_SAILSJS.git
+   cd EMS_SAILSJS
+   ```
+2. **Install dependencies:**
 
-<!-- Internally, Sails used [`sails-generate@2.0.9`](https://github.com/balderdashy/sails-generate/tree/v2.0.9/lib/core-generators/new). -->
+   ```bash
+   npm install
+   ```
+3. **Set up environment variables:**
 
+   Create a `.env` file in the root directory and provide the following variables:``
 
+   ```env
+   JWT_SECRET_KEY = "Your_JWT_Secret_Key"
+   ```
 
-<!--
-Note:  Generators are usually run using the globally-installed `sails` CLI (command-line interface).  This CLI version is _environment-specific_ rather than app-specific, thus over time, as a project's dependencies are upgraded or the project is worked on by different developers on different computers using different versions of Node.js, the Sails dependency in its package.json file may differ from the globally-installed Sails CLI release it was originally generated with.  (Be sure to always check out the relevant [upgrading guides](https://sailsjs.com/upgrading) before upgrading the version of Sails used by your app.  If you're stuck, [get help here](https://sailsjs.com/support).)
--->
+   Adjust the values based on your preferences.
+4. **Run the application:**
 
+   ```bash
+   npm start
+   ```
+
+   Access the application in your web browser at [http://localhost:3000](http://localhost:3000) (or the specified port).
+5. **Access the application:**
+
+   # Open your web browser and navigate to [http://localhost:3000](http://localhost:3000) (or the specified port).
