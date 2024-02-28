@@ -1,0 +1,109 @@
+<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-white"
+    id="sidenav-main">
+
+    <!-- Logo -->
+    <div class="sidenav-header">
+        <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
+            aria-hidden="true" id="iconSidenav"></i>
+        <a class="navbar-brand m-0" href="#" target="_blank">
+            <img src="/img-main/logo.png" class="" alt="main_logo">
+        </a>
+    </div>
+    <hr class="horizontal dark mt-0">
+
+    <!-- All Menu -->
+    <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
+        <ul class="navbar-nav">
+
+            <!-- Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link <% if (page == 'Dashboard') {%> active <% } %>" href="/dashboard">
+                    <div
+                        class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1"
+                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <title>shop </title>
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <g transform="translate(-1716.000000, -439.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                                    <g transform="translate(1716.000000, 291.000000)">
+                                        <g transform="translate(0.000000, 148.000000)">
+                                            <path class="color-background opacity-6"
+                                                d="M46.7199583,10.7414583 L40.8449583,0.949791667 C40.4909749,0.360605034 39.8540131,0 39.1666667,0 L7.83333333,0 C7.1459869,0 6.50902508,0.360605034 6.15504167,0.949791667 L0.280041667,10.7414583 C0.0969176761,11.0460037 -1.23209662e-05,11.3946378 -1.23209662e-05,11.75 C-0.00758042603,16.0663731 3.48367543,19.5725301 7.80004167,19.5833333 L7.81570833,19.5833333 C9.75003686,19.5882688 11.6168794,18.8726691 13.0522917,17.5760417 C16.0171492,20.2556967 20.5292675,20.2556967 23.494125,17.5760417 C26.4604562,20.2616016 30.9794188,20.2616016 33.94575,17.5760417 C36.2421905,19.6477597 39.5441143,20.1708521 42.3684437,18.9103691 C45.1927731,17.649886 47.0084685,14.8428276 47.0000295,11.75 C47.0000295,11.3946378 46.9030823,11.0460037 46.7199583,10.7414583 Z">
+                                            </path>
+                                            <path class="color-background"
+                                                d="M39.198,22.4912623 C37.3776246,22.4928106 35.5817531,22.0149171 33.951625,21.0951667 L33.92225,21.1107282 C31.1430221,22.6838032 27.9255001,22.9318916 24.9844167,21.7998837 C24.4750389,21.605469 23.9777983,21.3722567 23.4960833,21.1018359 L23.4745417,21.1129513 C20.6961809,22.6871153 17.4786145,22.9344611 14.5386667,21.7998837 C14.029926,21.6054643 13.533337,21.3722507 13.0522917,21.1018359 C11.4250962,22.0190609 9.63246555,22.4947009 7.81570833,22.4912623 C7.16510551,22.4842162 6.51607673,22.4173045 5.875,22.2911849 L5.875,44.7220845 C5.875,45.9498589 6.7517757,46.9451667 7.83333333,46.9451667 L19.5833333,46.9451667 L19.5833333,33.6066734 L27.4166667,33.6066734 L27.4166667,46.9451667 L39.1666667,46.9451667 C40.2482243,46.9451667 41.125,45.9498589 41.125,44.7220845 L41.125,22.2822926 C40.4887822,22.4116582 39.8442868,22.4815492 39.198,22.4912623 Z">
+                                            </path>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+                    <span class="nav-link-text ms-1">Dashboard</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link <% if (page == 'Accounts') {%> active <% } %>" href="/account">
+                    <div
+                        class="icon icon-shape icon-sm <% if (page == 'Accounts') { %> text-white <% } else {%> text-custom-black <% } %> shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <svg id="card" enable-background="new 0 0 512 512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><g><path d="m346.353 376.471c-8.324 0-15.059-6.735-15.059-15.059s6.735-15.059 15.059-15.059h159.624c3.327 0 6.024-2.697 6.024-6.023v-108.424c0-3.327-2.697-6.024-6.024-6.024h-499.953c-3.327 0-6.024 2.697-6.024 6.024v159.624c0 24.95 20.226 45.176 45.176 45.176h421.647c24.95 0 45.176-20.226 45.176-45.176v-9.035c0-3.327-2.697-6.024-6.024-6.024zm-180.706-30.118h-60.235c-8.324 0-15.059-6.735-15.059-15.059s6.735-15.059 15.059-15.059h60.235c8.324 0 15.059 6.735 15.059 15.059s-6.735 15.059-15.059 15.059z"></path><path d="m512 189.741v-69.271c0-24.95-20.226-45.176-45.176-45.176h-421.648c-24.95 0-45.176 20.226-45.176 45.177v69.271c0 3.327 2.697 6.024 6.024 6.024h499.953c3.326-.001 6.023-2.698 6.023-6.025z"></path></g></svg>
+                    </div>
+                    <span class="nav-link-text ms-1">Accounts</span>
+                </a>
+            </li>
+
+            <!-- Income -->
+            <!-- <li class="nav-item">
+                <a class="nav-link <% if (page == 'Income') {%> active <% } %>" href="/dashboard/income">
+                    <div
+                        class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+
+                        <img src="/img/salary.png" style="width: 16px; height: 16px;" />
+                    </div>
+                    <span class="nav-link-text ms-1">Income</span>
+                </a>
+            </li> -->
+
+            <!-- Expense -->
+            <!-- <li class="nav-item">
+                <a class="nav-link <% if (page == 'Expense') {%> active <% } %>" href="/dashboard/expense">
+                    <div
+                        class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <img src="/img/poor.png" style="width: 16px; height: 16px;" />
+                    </div>
+                    <span class="nav-link-text ms-1">Expenses</span>
+                </a>
+            </li> -->
+
+            <!-- Acccount Section -->
+            <li class="nav-item mt-3">
+                <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account </h6>
+            </li>
+
+            <!-- Sign Out Section -->
+            <li class="nav-item">
+                <a class="nav-link " href="/login" onclick="deleteCookie()">
+                    <div
+                        class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M2 6.5C2 4.01472 4.01472 2 6.5 2H12C14.2091 2 16 3.79086 16 6V7C16 7.55228 15.5523 8 15 8C14.4477 8 14 7.55228 14 7V6C14 4.89543 13.1046 4 12 4H6.5C5.11929 4 4 5.11929 4 6.5V17.5C4 18.8807 5.11929 20 6.5 20H12C13.1046 20 14 19.1046 14 18V17C14 16.4477 14.4477 16 15 16C15.5523 16 16 16.4477 16 17V18C16 20.2091 14.2091 22 12 22H6.5C4.01472 22 2 19.9853 2 17.5V6.5ZM18.2929 8.29289C18.6834 7.90237 19.3166 7.90237 19.7071 8.29289L22.7071 11.2929C23.0976 11.6834 23.0976 12.3166 22.7071 12.7071L19.7071 15.7071C19.3166 16.0976 18.6834 16.0976 18.2929 15.7071C17.9024 15.3166 17.9024 14.6834 18.2929 14.2929L19.5858 13L11 13C10.4477 13 10 12.5523 10 12C10 11.4477 10.4477 11 11 11L19.5858 11L18.2929 9.70711C17.9024 9.31658 17.9024 8.68342 18.2929 8.29289Z"
+                                fill="#0F1729" />
+                        </svg>
+                    </div>
+                    <span class="nav-link-text ms-1">Sign Out</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</aside>
+<script>
+    const deleteCookie = () => {
+        document.cookie = `Authorization=''; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`
+    }
+    const goBack = () => {
+        window.location.href=window.location.href.substring(0, window.location.href.lastIndexOf('/'))
+    }
+</script>

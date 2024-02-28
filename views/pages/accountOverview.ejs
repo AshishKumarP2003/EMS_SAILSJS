@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="/img/favicon.png">
+    <title>
+        Expense Book
+    </title>
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+    <!-- Nucleo Icons -->
+    <link href="/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="/css/nucleo-svg.css" rel="stylesheet" />
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <link href="/css/nucleo-svg.css" rel="stylesheet" />
+    <!-- CSS Files -->
+    <link id="pagestyle" href="/css/soft-ui-dashboard.css?v=1.0.7" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/modal.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <!-- Nepcha Analytics (nepcha.com) -->
+    <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
+    <!-- <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com//js/nepcha-analytics.js"></script> -->
+</head>
+
+<body class="g-sidenav-show  bg-gray-100">
+    <%- include('../includes/leftSideBar.ejs', {page: page }) %>
+        <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+            <!-- Navbar -->
+            <%- include('../includes/nav.ejs', {page: page }) %>
+                <!-- End Navbar -->
+                <div class="container-fluid py-4">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card mb-4">
+                                <div class="card-header d-flex justify-content-between pb-0" style="flex-wrap: wrap;">
+                                    <h4 class="align-self-left align-self-center">Overview</h4>
+                                    <!-- Search Box -->
+                                    <a class="btn badge bg-gradient-success search-box align-self-center mb-2" id="search_input" onclick="redirectTo('transaction')" placeholder="Search by Category">
+                                        Transactions
+                                </a>
+                                    <!-- Add Account -->
+                                    <div class="search-box align-self-center mb-2">
+                                        <button class="search-input bg-info" id="edit_button"
+                                            placeholder="Search by Category">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                                fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
+                                                <path
+                                                    d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001" />
+                                            </svg>
+                                        </button>
+                                        <button class="search-btn bg-danger text-white" id="delete_button" onclick="deleteAccountRecord('<%= accountData.id %>')">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                                fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                                                <path
+                                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <!-- <a class="btn align-self-right" href="#addAccount">Add Account</a> -->
+                                </div>
+                                <div class="card-body px-1 pt-2 pb-4">
+                                    <div class="p-0">
+                                        <div class="row my-2 justify-content-between" id="custom-responsive" style = "padding-left: 2rem; padding-right: 0.5rem;">
+                                            <form class="view-left row col-xl-9 col-lg-12 p-4 mb-2" id="accountEditForm">
+                                                <div class="col-lg-6 col-xs-12 ">
+                                                    <div class="col-12  py-0 text-sm">
+                                                        <div class="row col-12 mb-3 align-items-center ">
+                                                            <div class="col-sm-4 input-label ">Account Name</div>
+                                                            <input class="col-sm-8 form-value  p-2 px-3 "
+                                                                id="accountName" type="text"
+                                                                value="<%= accountData.accountName %>"
+                                                                name="accountName"
+                                                                placeholder="Eg. Saving, Credit, etc" readonly></input>
+                                                        </div>
+                                                        <div class="row col-12 mb-3 align-items-center ">
+                                                            <div class="col-sm-4 input-label ">Account Type</div>
+                                                            <select class="col-sm-8 p-2 px-3 form-value" disabled
+                                                                type="text" name="accountType" id="accountType">
+                                                                <option value="">Select Account Type</option>
+                                                                <option value="Saving" <% if
+                                                                    (accountData.accountType=="Saving" ) { %> selected
+                                                                    <% } %> >Saving</option>
+                                                                <option value="Current" <% if
+                                                                    (accountData.accountType=="Current" ) { %> selected
+                                                                    <% } %> >Current</option>
+                                                                <option value="Credit Card" <% if
+                                                                    (accountData.accountType=="Credit Card" ) { %>
+                                                                    selected <% } %> >Credit Card</option>
+                                                                <option value="Cash Account" <% if
+                                                                    (accountData.accountType=="Cash Account" ) { %>
+                                                                    selected <% } %> >Cash Account</option>
+                                                                <option value="Other" <% if
+                                                                    (accountData.accountType=="Other" ) { %> selected <%
+                                                                        } %> >Other</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="row col-12 mb-3 align-items-center ">
+                                                            <div class="col-sm-4 input-label ">Bank Name</div>
+                                                            <input class="col-sm-8 form-value  p-2 px-3 " type="text"
+                                                                name="bankName" id="bankName"
+                                                                value="<%= accountData.bankName %>"
+                                                                placeholder="Eg. State Bank of India, etc." readonly  ></input>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-xs-12 ">
+                                                    <div class="col-12  py-0 text-sm">
+                                                        <div class="row col-12 mb-3 align-items-center ">
+                                                            <div class="col-sm-4 input-label ">Account Number</div>
+                                                            <input class="col-sm-8 form-value  p-2 px-3" type="number"
+                                                                id="accountNumber"
+                                                                value="<%= accountData.accountNumber %>"
+                                                                name="accountNumber" placeholder="xxxxxxxxxxxx"
+                                                                readonly></input>
+                                                        </div>
+                                                        <div class="row col-12 mb-3 align-items-center ">
+                                                            <div class="col-sm-4 input-label ">Account Holder</div>
+                                                            <input class="col-sm-8 form-value p-2 px-3 " name="accountHolder" id="accountHolder"
+                                                                value="<%= accountData.accountHolder %>"
+                                                                placeholder="Full Name" readonly ></input>
+                                                        </div>
+                                                        <div class="row col-12 mb-3 align-items-center ">
+                                                            <div class="col-sm-4 input-label ">Account Description</div>
+                                                            <textarea class="col-sm-8 form-value p-2 px-3 " readonly
+                                                                rows="2" name="accountDescription"
+                                                                id="accountDescription"
+                                                                placeholder="E.g., Personal Savings Account"><%= accountData.accountDescription %></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12" class="" >
+                                                    <div class="col-12  text-sm text-center row justify-content-between display-none" id="submitDiv" >
+                                                        <input type="button" value="Cancel" class="col-lg-2 btn bg-gradient-secondary">
+                                                        <input type="submit" value="Save" class="col-lg-2 btn bg-gradient-dark">
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <div
+                                                class="view-right col-xl-3 col-lg-12 row p-4 align-items-top justify-content-left mb-2">
+                                                <div class="balance col-12 font-15">
+                                                    <div class="balance col-12 font-1">Balance</div>
+                                                    ₹ <%= accountData.currentBalance %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </main>
+
+
+        <!-- Edit Account Modal -->
+        <div id="editAccount" class="modal-window">
+            <div>
+
+                <!-- Add Account Form -->
+                <form id="editAccountForm" class="incomeForm">
+                    <h5>Edit Account</h5>
+                    <a href="#"><img src="/img/close.png" class="modal-close" alt="" /></a>
+
+                    <!-- Account Category and Amount -->
+                    <div class="form-row">
+                        <div class="form-element-div width-50 mr-2">
+                            <label class="form-label" for="editCategory">Account Category</label>
+                            <input class="form-input" type="text" placeholder="ccount Category" name="category"
+                                id="editCategory">
+                        </div>
+                        <div class="form-element-div width-50 ml-2">
+                            <label class="form-label" for="editAmount">Amount</label>
+                            <input class="form-input" type="text" placeholder="Amount" name="amount" id="editAmount">
+                        </div>
+                    </div>
+
+                    <!-- Account source / description -->
+                    <div class="form-element-div width-100">
+                        <label class="form-label" for="editSource">Source / Description</label>
+                        <textarea class="form-textarea" type="text" placeholder="Description" name="source"
+                            id="editSource"></textarea>
+                    </div>
+
+                    <!-- Account Date and Payment Method -->
+                    <div class="form-row">
+                        <div class="form-element-div width-50 mr-2">
+                            <label class="form-label" for="editDatetime">Date</label>
+                            <input class="form-input" type="datetime-local" name="datetime" id="editDatetime">
+                        </div>
+                        <div class="form-element-div width-50 ml-2">
+                            <label class="form-label" for="paymentMethod">Payment Method</label>
+                            <select class="form-input" type="text" name="paymentMethod" id="editPaymentMethod">
+                                <option value="">Select Payment Method</option>
+                                <option value="Online">Online</option>
+                                <option value="Cash">Cash</option>
+                                <option value="Cheque">Cheque</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <input class="form-input" type="hidden" name="accountId" id="editAccountId">
+                    <button class="form-button" type="submit">Save</button>
+                </form>
+            </div>
+        </div>
+
+        </div>
+
+        <!--   Core JS Files   -->
+        <script src="/js/core/popper.min.js"></script>
+        <script src="/js/core/bootstrap.min.js"></script>
+        <script src="/js/plugins/perfect-scrollbar.min.js"></script>
+        <script src="/js/plugins/smooth-scrollbar.min.js"></script>
+        <script src="/js/plugins/chartjs.min.js"></script>
+        <script>
+        </script>
+        <script>
+            document.getElementById("bankName").removeAttribute('readonly')
+
+            var win = navigator.platform.indexOf('Win') > -1;
+            if (win && document.querySelector('#sidenav-scrollbar')) {
+                var options = {
+                    damping: '0.5'
+                }
+                Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+            }
+        </script>
+        <!-- Github buttons -->
+        <script async defer src="https://buttons.github.io/buttons.js"></script>
+        <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+        <script src="/js/soft-ui-dashboard.js?v=1.0.7"></script>
+        <script src="/js/account/accountOverview.js"></script>
+        <script src="/js/account/search.js"></script>
+</body>
+
+</html>

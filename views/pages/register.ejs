@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp | Expense Book</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/register.css">
+    <!--Stylesheet-->
+</head>
+
+<body>
+
+
+    <body>
+
+        <!-- Shapes in page -->
+        <div class="background">
+            <img src="/img-main/book.webp" class="shape" />
+            <img src="/img-main/dollar_coin.png" class="shape" />
+        </div>
+
+        <!-- SignUp Form -->
+        <form id="registerForm">
+
+            <!-- Logo -->
+            <div class="form-logo-div">
+                <img src="img-main/logo.png" alt="" class="form-logo">
+            </div>
+
+            <!-- Heading -->
+            <h3>Sign Up Here</h3>
+            <h6>Already have an Account?<a href="/login"> LogIn Here</a></h5>
+
+                <!-- Name -->
+                <label for="name">Name</label>
+                <input type="text" placeholder="Name" name="name" id="name">
+
+                <!-- Email -->
+                <label for="email">Username</label>
+                <input type="text" placeholder="Email" name="email" id="email">
+
+                <!-- Password -->
+                <label for="password">Password</label>
+                <input type="password" placeholder="Password" name="password" id="password">
+
+                <!-- Confirm Password -->
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" placeholder="Re-Type Password" name="confirmPassword" id="confirmPassword">
+
+                <!-- SingUp submit button -->
+                <button type="submit">Sign Up</button>
+        </form>
+        <!-- Script -->
+        <script src="js/utils/utils.auth.js"></script>
+        <script src="js/register.js"></script>
+    </body>
+
+</html>

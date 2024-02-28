@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="/img/favicon.png">
+    <title>
+        Expense Book
+    </title>
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+    <!-- Nucleo Icons -->
+    <link href="/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="/css/nucleo-svg.css" rel="stylesheet" />
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <link href="/css/nucleo-svg.css" rel="stylesheet" />
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="/css/modal.css">
+    <link id="pagestyle" href="/css/soft-ui-dashboard.css?v=1.0.7" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+
+<body class="g-sidenav-show  bg-gray-100">
+    <%- include('../includes/leftSideBar.ejs', {page: page }) %>
+        <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+            <!-- Navbar -->
+            <%- include('../includes/nav.ejs', {page: page }) %>
+                <!-- End Navbar -->
+                <div class="container-fluid py-4">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="d-flex justify-content-between">
+                                <a class="btn align-self-left bg-white" onclick = "back()" >Back</a>
+                                <a class="btn align-self-right bg-white" href="#addTransaction">Add Transaction</a>
+
+                            </div>
+                            <div class="card mb-4">
+                                
+                                <div class="card-header d-flex justify-content-between pb-0" style="flex-wrap: wrap;">
+                                    <h6 class="align-self-left">Transactions</h6>
+
+                                    <!-- Search Box -->
+                                    <div class="search-box align-self-center">
+                                        <input type="text" class="search-input" id="search_input"
+                                            placeholder="Search by Category">
+                                        <button class="search-btn" id="search_button">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
+
+                                    <!-- Add Transaction Button -->
+                                    <!-- <a class="btn align-self-right" href="#addTransaction">Add Transaction</a> -->
+                                </div>
+                                <div class="card-body px-0 pt-0 pb-2">
+                                    <div class="table-responsive p-0">
+                                        <table class="table align-items-center mb-0">
+                                            <!-- Table Head -->
+                                            <thead>
+                                                <tr>
+                                                    <th
+                                                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                        Category</th>
+                                                    <th
+                                                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                        Amount</th>
+                                                    <th
+                                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                        DateTime</th>
+                                                    <th
+                                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                        Description</th>
+                                                    <th
+                                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                        Payment Method</th>
+                                                    <th
+                                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                        Recipient</th>
+                                                    <th
+                                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                        Transaction Type</th>
+                                                    <th class="text-secondary opacity-7">Action</th>
+                                                </tr>
+                                            </thead>
+
+                                            <!-- Table Body -->
+                                            <tbody id="table_body">
+
+                                                <!-- Table Rows -->
+                                                <% if (transactionData.length==0) { %>
+                                                    <tr style="display: 'flex'">
+                                                        <td class="text-center" colspan='8'>No Record Found</td>
+                                                    </tr>
+                                                    <% } transactionData.forEach(function(row) { %>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="d-flex px-2 py-1">
+                                                                    <div
+                                                                        class="d-flex flex-column justify-content-center">
+                                                                        <h6 class="mb-0 text-sm">
+                                                                            <%= row.category %>
+                                                                        </h6>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <p class="text-xs font-weight-bold mb-0 <% if (row.transactionType=='Debit') {%>text-danger<%} else {%>text-success<%}%>">
+                                                                    <% if (row.transactionType=='Debit') {%>-<%} else {%>+<%}%>
+                                                                ₹ <%= row.amount %>
+                                                                </p>
+                                                            </td>
+                                                            <td class="align-middle text-center">
+                                                                <span class="text-secondary text-xs font-weight-bold">
+                                                                    <%= row.datetime %>
+                                                                </span>
+                                                            </td>
+                                                            <td style="min-width: 250px;"
+                                                                class="align-middle text-center">
+                                                                <span class="text-secondary text-xs font-weight-bold">
+                                                                    <%= row.source %>
+                                                                </span>
+                                                            </td>
+                                                            <td class="align-middle text-center text-sm">
+                                                                <span class="badge badge-sm bg-gradient-<% if (row.paymentMethod == 'Online') {
+                                                            %>success<%
+                                                        } else if (row.paymentMethod == 'Cash') { 
+                                                            %>info<%
+                                                        } else if (row.paymentMethod == 'Cheque') { 
+                                                            %>primary<%
+                                                        } else { 
+                                                            %>warning<%
+                                                        } %>">
+                                                                    <%= row.paymentMethod %>
+                                                                </span>
+                                                            </td>
+                                                            <td class="align-middle text-center">
+                                                                <span class="text-secondary text-xs font-weight-bold">
+                                                                    <%= row.recipientName %>
+                                                                </span>
+                                                            </td>
+                                                            <td class="align-middle text-center">
+                                                                <span class="text-white badge badge-sm bg-gradient-<% if (row.transactionType == 'Debit') {
+                                                                    %>danger<%
+                                                                } else if (row.transactionType == 'Credit') { 
+                                                                    %>success<%
+                                                                } else { 
+                                                                    %>dark<%
+                                                                } %>">
+                                                                    <%= row.transactionType %>
+                                                                </span>
+                                                            </td>
+                                                            <td class="align-middle">
+                                                                <a href="#editTransaction"
+                                                                    class="badge badge-sm bg-gradient-info font-weight-bold text-xs"
+                                                                    onclick="openEditModal('<%= JSON.stringify(row) %>')"
+                                                                    data-toggle="tooltip"
+                                                                    data-original-title="Edit user">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12"
+                                                                        height="12" fill="currentColor"
+                                                                        class="bi bi-pen-fill" viewBox="0 0 16 16">
+                                                                        <path
+                                                                            d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001" />
+                                                                    </svg>
+                                                                </a>
+                                                                <a href="javascript:;"
+                                                                    class="badge badge-sm bg-gradient-danger font-weight-bold text-xs"
+                                                                    id="deleteTransactionRecord"
+                                                                    onclick="deleteTransactionRecord('<%= row.id %>')"
+                                                                    data-transactionid='<%= row.id %>'
+                                                                    data-toggle="tooltip"
+                                                                    data-original-title="Edit user">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12"
+                                                                        height="12" fill="currentColor"
+                                                                        class="bi bi-trash" viewBox="0 0 16 16">
+                                                                        <path
+                                                                            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                                                                        <path
+                                                                            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                                                                    </svg>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                        <% }); %>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr style="display: 'flex'; ">
+                                                    <td class="text-start text-lg text-bolder" style="padding-left: 1rem">Current Balance</td>
+                                                    <td class="text-start text-bolder text-lg text-success" style="margin-top: 5rem">₹&nbsp;<%= totalAmount %> </td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </main>
+
+
+        <!-- Add Transaction Modal -->
+        <div id="addTransaction" class="modal-window">
+            <div>
+
+                <!-- Add Transaction Form -->
+                <form id="transactionForm" class="incomeForm">
+                    <h5>Transaction</h5>
+                    <a href="#"><img src="/img/close.png" class="modal-close" alt="" /></a>
+
+                    <!-- Transaction Category and Amount -->
+                    <div class="form-row">
+                        <div class="form-element-div width-50 mr-2">
+                            <label class="form-label" for="category">Transaction Category</label>
+                            <input class="form-input" type="text" placeholder="Transaction Category" name="category"
+                                id="category">
+                        </div>
+                        <div class="form-element-div width-50 ml-2">
+                            <label class="form-label" for="amount">Amount</label>
+                            <input class="form-input" type="text" placeholder="Amount" name="amount" id="amount">
+                        </div>
+                    </div>
+
+                    <!-- Transaction source / description -->
+                    <div class="form-element-div width-100">
+                        <label class="form-label" for="source">Source / Description</label>
+                        <textarea class="form-textarea" type="text" placeholder="Description" name="source"
+                            id="source"></textarea>
+                    </div>
+
+                    <!-- Transaction Date and Payment Method -->
+                    <div class="form-row">
+                        <div class="form-element-div width-50 mr-2">
+                            <label class="form-label" for="datetime">Date</label>
+                            <input class="form-input" type="datetime-local" name="datetime" id="datetime">
+                        </div>
+                        <div class="form-element-div width-50 ml-2">
+                            <label class="form-label" for="paymentMethod">Payment Method</label>
+                            <select class="form-input" type="text" name="paymentMethod" id="paymentMethod">
+                                <option value="">Select Payment Method</option>
+                                <option value="Online">Online</option>
+                                <option value="Cash">Cash</option>
+                                <option value="Cheque">Cheque</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Payment Recipient and Transaction Type -->
+                    <div class="form-row">
+                        <div class="form-element-div width-50 mr-2">
+                            <label class="form-label" for="recipientName">Sender/Recipient Name</label>
+                            <input class="form-input" type="text" name="recipientName" placeholder="Sender/Recipient Name"
+                                id="recipientName">
+                        </div>
+                        <div class="form-element-div width-50 ml-2">
+                            <label class="form-label" for="transactionType">Transaction Type</label>
+                            <select class="form-input" name="transactionType" id="transactionType">
+                                <option value="">Select Transaction Type</option>
+                                <option value="Debit">Debit</option>
+                                <option value="Credit">Credit</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="form-button" type="submit">Add</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Edit Transaction Modal -->
+        <div id="editTransaction" class="modal-window">
+            <div>
+
+                <!-- Add Transaction Form -->
+                <form id="editTransactionForm" class="incomeForm">
+                    <h5>Edit Transaction</h5>
+                    <a href="#"><img src="/img/close.png" class="modal-close" alt="" /></a>
+
+                    <!-- Transaction Category and Amount -->
+                    <div class="form-row">
+                        <div class="form-element-div width-50 mr-2">
+                            <label class="form-label" for="editCategory">Transaction Category</label>
+                            <input class="form-input" type="text" placeholder="Transaction Category" name="category"
+                                id="editCategory">
+                        </div>
+                        <div class="form-element-div width-50 ml-2">
+                            <label class="form-label" for="editAmount">Amount</label>
+                            <input class="form-input" type="text" placeholder="Amount" name="amount" id="editAmount">
+                        </div>
+                    </div>
+
+                    <!-- Transaction source / description -->
+                    <div class="form-element-div width-100">
+                        <label class="form-label" for="editSource">Source / Description</label>
+                        <textarea class="form-textarea" type="text" placeholder="Description" name="source"
+                            id="editSource"></textarea>
+                    </div>
+
+                    <!-- Transaction Date and Payment Method -->
+                    <div class="form-row">
+                        <div class="form-element-div width-50 mr-2">
+                            <label class="form-label" for="editDatetime">Date</label>
+                            <input class="form-input" type="datetime-local" name="datetime" id="editDatetime">
+                        </div>
+                        <div class="form-element-div width-50 ml-2">
+                            <label class="form-label" for="editPaymentMethod">Payment Method</label>
+                            <select class="form-input" type="text" name="paymentMethod" id="editPaymentMethod">
+                                <option value="">Select Payment Method</option>
+                                <option value="Online">Online</option>
+                                <option value="Cash">Cash</option>
+                                <option value="Cheque">Cheque</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Payment Recipient and Transaction Type -->
+                    <div class="form-row">
+                        <div class="form-element-div width-50 mr-2">
+                            <label class="form-label" for="editRecipientName">Sender/Recipient Name</label>
+                            <input class="form-input" type="text" name="recipientName" placeholder="Sender/Recipient Name"
+                                id="editRecipientName">
+                        </div>
+                        <div class="form-element-div width-50 ml-2">
+                            <label class="form-label" for="editTransactionType">Transaction Type</label>
+                            <select class="form-input" name="transactionType" id="editTransactionType">
+                                <option value="">Select Transaction Type</option>
+                                <option value="Debit">Debit</option>
+                                <option value="Credit">Credit</option>
+                            </select>
+                        </div>
+                    </div>
+                    <input class="form-input" type="hidden" name="transactionId" id="editTransactionId">
+                    <button class="form-button" type="submit">Save</button>
+                </form>
+            </div>
+        </div>
+
+        </div>
+
+        <!--   Core JS Files   -->
+        <script src="/js/core/popper.min.js"></script>
+        <script src="/js/core/bootstrap.min.js"></script>
+        <script src="/js/plugins/perfect-scrollbar.min.js"></script>
+        <script src="/js/plugins/smooth-scrollbar.min.js"></script>
+        <script src="/js/plugins/chartjs.min.js"></script>
+        <script>
+        </script>
+        <script>
+            var win = navigator.platform.indexOf('Win') > -1;
+            if (win && document.querySelector('#sidenav-scrollbar')) {
+                var options = {
+                    damping: '0.5'
+                }
+                Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+            }
+        </script>
+        <!-- Github buttons -->
+        <script async defer src="https://buttons.github.io/buttons.js"></script>
+        <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+        <script src="/js/soft-ui-dashboard.js?v=1.0.7"></script>
+        <script src="/js/transaction/transaction.js"></script>
+        <script src="/js/transaction/search.js"></script>
+</body>
+
+</html>
