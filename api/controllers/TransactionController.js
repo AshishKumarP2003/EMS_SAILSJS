@@ -5,6 +5,9 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
+const ResponseCode = sails.config.constants.ResponseCode;
+
+
 module.exports = {
   /**
    * @name index
@@ -82,17 +85,17 @@ module.exports = {
       if (add) {
         await sails.config.services.balance.updateBalance(accountId);
         res
-          .status(200)
+          .status(ResponseCode.OK)
           .json({ type: "success", message: "Transaction Added Successfully" });
       } else {
         res
-          .status(500)
+          .status(ResponseCode.SERVER_ERROR)
           .json({ type: "error", message: "Transaction Add Failed" });
       }
     } catch (error) {
       console.log(error);
       res
-        .status(500)
+        .status(ResponseCode.SERVER_ERROR)
         .json({ type: "error", message: "Something went wrong..." });
     }
   },
@@ -124,19 +127,19 @@ module.exports = {
       if (update) {
         await sails.config.services.balance.updateBalance(accountId);
 
-        res.status(200).json({
+        res.status(ResponseCode.OK).json({
           type: "success",
           message: "Transaction Updated Successfully",
         });
       } else {
         res
-          .status(500)
+          .status(ResponseCode.SERVER_ERROR)
           .json({ type: "error", message: "Transaction Updated Failed" });
       }
     } catch (error) {
       console.log(error.message);
       res
-        .status(500)
+        .status(ResponseCode.SERVER_ERROR)
         .json({ type: "error", message: "Something went wrong..." });
     }
   },
@@ -152,19 +155,20 @@ module.exports = {
    */
   deleteTransaction: async (req, res) => {
     try {
+      console.log(req.body)
       const add = await Transaction.destroyOne({
         id: req.body.transactionId,
       });
       console.log(add);
       if (add) {
-        await sails.config.services.balance.updateBalance(accountId);
+        await sails.config.services.balance.updateBalance(req.body.accountId);
         res.status(200).json({
           type: "success",
           message: "Transaction Deleted Successfully",
         });
       } else {
         res
-          .status(500)
+          .status(ResponseCode.SERVER_ERROR)
           .json({ type: "error", message: "Transaction Delete Failed" });
       }
     } catch (error) {

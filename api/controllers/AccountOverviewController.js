@@ -5,6 +5,9 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
+const ResponseCode = sails.config.constants.ResponseCode;
+
+
 module.exports = {
   /**
    * @name index
@@ -67,16 +70,16 @@ module.exports = {
       });
       if (add) {
         res
-          .status(200)
+          .status(ResponseCode.OK)
           .json({ type: "success", message: "Account Updated Successfully" });
       } else {
         res
-          .status(500)
+          .status(ResponseCode.SERVER_ERROR)
           .json({ type: "error", message: "Account Updated Failed" });
       }
     } catch (error) {
       res
-        .status(500)
+        .status(ResponseCode.SERVER_ERROR)
         .json({ type: "error", message: "Something went wrong..." });
     }
   },
@@ -100,17 +103,17 @@ module.exports = {
       console.log(deleteaccount);
       if (deleteaccount) {
         res
-          .status(200)
+          .status(ResponseCode.OK)
           .json({ type: "success", message: "Account Deleted Successfully" });
       } else {
         res
-          .status(500)
+          .status(ResponseCode.SERVER_ERROR)
           .json({ type: "error", message: "Account Delete Failed" });
       }
     } catch (error) {
       console.log(error);
       res
-        .status(500)
+        .status(ResponseCode.SERVER_ERROR)
         .json({ type: "error", message: "Something went wrong..." });
     }
   },

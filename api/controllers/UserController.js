@@ -39,18 +39,18 @@ module.exports = {
                 if (wasCreated) {
                     console.log("🆕 Signup Successful");
                     res
-                        .status(200)
+                        .status(ResponseCode.OK)
                         .json({ type: "success", message: "SignUp Successful." });
                 } else {
                     console.log("User Already Exists.");
                     res
-                        .status(200)
+                        .status(ResponseCode.CONFLICT)
                         .json({ type: "error", message: "User Already Exists." });
                 }
             });
         } catch (error) {
             console.log("Add New User Error: " + error);
-            res.status(500).json({ type: "error", message: "Something went wrong" });
+            res.status(ResponseCode.SERVER_ERROR).json({ type: "error", message: "Something went wrong" });
         }
     },
 

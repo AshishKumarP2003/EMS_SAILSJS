@@ -4,6 +4,7 @@
  * @description :: Server-side actions for handling incoming requests.
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
+const ResponseCode = sails.config.constants.ResponseCode;
 
 module.exports = {
 
@@ -48,13 +49,13 @@ module.exports = {
             const add = await Account.create({userId: req.user.userId, accountName: accountName, accountType: accountType, accountNumber: accountNumber, accountHolder: accountHolder, bankName: bankName, currentBalance: 0 , accountDescription: accountDescription}).fetch();
             console.log(add);
             if (add) {
-                res.status(200).json({type: 'success', message: "Account Added Successfully"})
+                res.status(ResponseCode.OK).json({type: 'success', message: "Account Added Successfully"})
             } else {
-                res.status(500).json({type: 'error', message: "Account Add Failed"});
+                res.status(ResponseCode.SERVER_ERROR).json({type: 'error', message: "Account Add Failed"});
             }
         } catch (error) {
             console.log('Add Account Error => ', error.message)
-            res.status(500).json({type: "error", message: "Something went wrong..."});
+            res.status(ResponseCode.SERVER_ERROR).json({type: "error", message: "Something went wrong..."});
         }
     },
 
@@ -73,7 +74,7 @@ module.exports = {
             const accountsList = await Account.find().where({ userId: req.user.userId, accountName: { contains: req.body.accountName }});
             console.log(accountsList);
             if (accountsList) {
-                res.json({type: 'success', data: accountsList}) ;
+                res.status(ResponseCode.OK).json({type: 'success', data: accountsList}) ;
             } else {
             return [];
             }

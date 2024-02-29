@@ -44,7 +44,9 @@ document.getElementById("editTransactionForm").addEventListener("submit", (e) =>
     e.preventDefault();
     const formData = new FormData(e.target);
     let data = Object.fromEntries(formData.entries());
-    data.accounIid = window.location.href.split('/')[4].split('#')[0]
+    data.accountId = window.location.href.split('/')[4].split('#')[0]
+    console.log(window.location.href.split('/')[4].split('#')[0])
+    console.log(data.accountId)
 
     // if (validateTransactionForm(formData)) {
         console.log("Transaction Form Submission process Started");
@@ -123,16 +125,19 @@ const deleteTransactionRecord = (transactionId) => {
     if (confirm("Are you sure you want to delete this record?")) {
         console.log("Transaction Deletion process started");
 
+        const data = JSON.stringify({
+            transactionId: transactionId,
+            accountId: window.location.href.split('/')[4].split('#')[0]
+        });
+        console.log(data);
+
         // Request Delete Transaction Record.
         fetch('/transaction/delete', {
             method: 'DELETE',
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-                transactionId: transactionId,
-                accountId: window.location.href.split('/')[4].split('#')[0]
-            })
+            body: data
         }).then(data => {
             return data.json()
         }).then(data => {

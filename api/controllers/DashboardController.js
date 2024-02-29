@@ -5,6 +5,9 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
+const ResponseCode = sails.config.constants.ResponseCode;
+
+
 module.exports = {
     /**
      * @name index
