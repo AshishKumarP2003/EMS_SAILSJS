@@ -14,21 +14,27 @@ module.exports = {
      * @param {Request} req
      * @param {Response} res
      * @throws None
-     * @description This method provide Accounts View Page File to the client.
+     * @description This method provide Accounts List to the Accounts View Page File.
      * @author Ashish Kumar Patel (Zignuts)
      */
     index: async (req, res) => {
+        // Initial Accounts list Array.
         let accountsList = [];
         try {
+            // Fetching the Account Lists of Logged In User.
             const list = await Account.find().where({ userId: req.user.userId });
-            // console.log(accountsList);
             if (list) {
                 console.log("👁️/accounts => Accounts Page ")
+
+                // Overwriting the Account List Array with Fetch Data.
                 accountsList = list;
             } 
         } catch (error) {
-            console.log(error)
+            // Debug: Console if any error occurs.
+            console.log(error.message)
         }
+
+
         return res.view('pages/accounts', {page: "Accounts", user: req.user, accountsList: accountsList})
     },
 

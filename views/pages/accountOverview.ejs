@@ -146,7 +146,9 @@
                                                 class="view-right col-xl-3 col-lg-12 row p-4 align-items-top justify-content-left mb-2">
                                                 <div class="balance col-12 font-15">
                                                     <div class="balance col-12 font-1">Balance</div>
-                                                    ₹ <%= accountData.currentBalance %>
+                                                    <div class = "text-<% if(accountData.currentBalance > 0) {%>success<%} else {%>danger<%}%>">
+                                                        ₹ <%= accountData.currentBalance %>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -158,60 +160,6 @@
                 </div>
         </main>
 
-
-        <!-- Edit Account Modal -->
-        <div id="editAccount" class="modal-window">
-            <div>
-
-                <!-- Add Account Form -->
-                <form id="editAccountForm" class="incomeForm">
-                    <h5>Edit Account</h5>
-                    <a href="#"><img src="/img/close.png" class="modal-close" alt="" /></a>
-
-                    <!-- Account Category and Amount -->
-                    <div class="form-row">
-                        <div class="form-element-div width-50 mr-2">
-                            <label class="form-label" for="editCategory">Account Category</label>
-                            <input class="form-input" type="text" placeholder="ccount Category" name="category"
-                                id="editCategory">
-                        </div>
-                        <div class="form-element-div width-50 ml-2">
-                            <label class="form-label" for="editAmount">Amount</label>
-                            <input class="form-input" type="text" placeholder="Amount" name="amount" id="editAmount">
-                        </div>
-                    </div>
-
-                    <!-- Account source / description -->
-                    <div class="form-element-div width-100">
-                        <label class="form-label" for="editSource">Source / Description</label>
-                        <textarea class="form-textarea" type="text" placeholder="Description" name="source"
-                            id="editSource"></textarea>
-                    </div>
-
-                    <!-- Account Date and Payment Method -->
-                    <div class="form-row">
-                        <div class="form-element-div width-50 mr-2">
-                            <label class="form-label" for="editDatetime">Date</label>
-                            <input class="form-input" type="datetime-local" name="datetime" id="editDatetime">
-                        </div>
-                        <div class="form-element-div width-50 ml-2">
-                            <label class="form-label" for="paymentMethod">Payment Method</label>
-                            <select class="form-input" type="text" name="paymentMethod" id="editPaymentMethod">
-                                <option value="">Select Payment Method</option>
-                                <option value="Online">Online</option>
-                                <option value="Cash">Cash</option>
-                                <option value="Cheque">Cheque</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </div>
-                    </div>
-                    <input class="form-input" type="hidden" name="accountId" id="editAccountId">
-                    <button class="form-button" type="submit">Save</button>
-                </form>
-            </div>
-        </div>
-
-        </div>
 
         <!--   Core JS Files   -->
         <script src="/js/core/popper.min.js"></script>
@@ -233,11 +181,9 @@
             }
         </script>
         <!-- Github buttons -->
-        <script async defer src="https://buttons.github.io/buttons.js"></script>
         <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
         <script src="/js/soft-ui-dashboard.js?v=1.0.7"></script>
         <script src="/js/account/accountOverview.js"></script>
-        <script src="/js/account/search.js"></script>
 </body>
 
 </html>

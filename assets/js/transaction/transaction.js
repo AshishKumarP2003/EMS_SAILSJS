@@ -1,7 +1,5 @@
 const openEditModal = (jsonreplaceStringData) => {
-    console.log(jsonreplaceStringData)
     const jsonStringData = jsonreplaceStringData.replace(/<>/gi, '"');
-    console.log(jsonStringData);
 
     const row = JSON.parse(jsonStringData);
     console.log(row)

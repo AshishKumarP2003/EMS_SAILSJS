@@ -38,8 +38,7 @@ document.getElementById("loginForm").addEventListener("submit", (e) => {
             return data.json()
         }).then(data => {
             console.log(data);
-            if (data.token && data.url) {
-                document.cookie = `Authorization=${data.token}; path=/`;
+            if (data.url) {
                 window.location.href = data.url
             }
             alert(data.message)

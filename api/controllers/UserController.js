@@ -85,13 +85,18 @@ module.exports = {
                         });
                         console.log(updateToken);
                         if (updateToken) {
-                            console.log("Token Updated");
+                            console.log("Authorization cookies setting");
+                            res.cookie('Authorization', token, {
+                                path: '/',
+                                maxAge: 1*60*60*1000,
+                                secure: true
+                              });
+                              console.log("Rd")
                             res
                                 .status(ResponseCode.OK)
                                 .json({
                                     type: "success",
                                     message: "Login Successful",
-                                    token: token,
                                     url: "/dashboard",
                                 });
                         } else {
