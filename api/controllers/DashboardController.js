@@ -17,6 +17,7 @@ module.exports = {
      * @author Ashish Kumar Patel (Zignuts)
      */
     index: async (req, res) => {
+        console.log(req.ip)
 
         totalAccounts = 0;
         totalBalance = 0;

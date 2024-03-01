@@ -125,7 +125,7 @@ const deleteTransactionRecord = (transactionId) => {
 
         const data = JSON.stringify({
             transactionId: transactionId,
-            accountId: window.location.href.split('/')[4].split('#')[0]
+            accountId: window.location.href.split('/')[4].split('#')[0].split('?')[0]
         });
         console.log(data);
 
@@ -152,4 +152,8 @@ const deleteTransactionRecord = (transactionId) => {
 
 const back = () => {
     window.location.href = '/account/' + window.location.href.split('/')[4].split('#')[0];
+}
+
+const goTo = (pageNo) => {
+    window.location.href = window.location.href.split('?')[0] + `?page=${pageNo}`;
 }

@@ -1,7 +1,8 @@
-const { body } = sails.config.requirements.expressValidator;
+const { body } = sails.config.constants.Requirement.expressValidator;
 
+// Note: This method will be executed only for authenticated Users and verfied user account.
 module.exports = async (req, res, proceed) => {
-    // LOGIN Validation Rules for Incoming Data
+    // Update Transaction Validation Rules for Incoming Data
     const updateTransactionRules = [
         body("transactionId").notEmpty().withMessage("Invalid Transaction Id"), 
         body("accountId").notEmpty().withMessage("Invalid Account Id"),

@@ -89,8 +89,8 @@
                                                                 </div>
                                                                 <div class="col-6 text-end">
                                                                     <div
-                                                                        class="bg-white shadow text-center badge badge-xs text-xs border-radius-md">
-                                                                        <div class="text-<% if(account.currentBalance > 0) {%>success<%} else {%>danger<%}%>">
+                                                                        class="shadow text-center badge badge-xs text-xs border-radius-md bg-gradient-<% if(account.currentBalance > 0) {%>success<%} else {%>danger<%}%>">
+                                                                        <div class="">
                                                                             ₹ <%= account.currentBalance %>
                                                                         </div>
                                                                     </div>

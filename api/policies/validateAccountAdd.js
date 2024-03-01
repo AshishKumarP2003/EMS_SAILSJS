@@ -1,7 +1,8 @@
-const { body } = sails.config.requirements.expressValidator;
+const { body } = sails.config.constants.Requirement.expressValidator;
 
+// Note: This method will be executed only for authenticated Users and verfied user account.
 module.exports = async (req, res, proceed) => {
-    // LOGIN Validation Rules for Incoming Data
+    // Add Account Validation Rules for Incoming Data
     const addAccountRules = [
         body("accountName").notEmpty().withMessage("Account Name is Required"),
         body("accountType").notEmpty().withMessage("Account Type is Required"),

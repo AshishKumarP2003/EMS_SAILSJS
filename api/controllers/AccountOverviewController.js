@@ -96,12 +96,14 @@ module.exports = {
   deleteAccount: async (req, res) => {
     console.log("Body:", req.body);
     try {
+      const deleteTransactions = await Transaction.destroy({accountId: req.body.accountId});
       const deleteaccount = await Account.destroy({
         userId: req.user.userId,
         id: req.body.accountId,
       }).fetch();
       console.log(deleteaccount);
       if (deleteaccount) {
+        await sails.config.services.balance.updateAccount(accountId);
         res
           .status(ResponseCode.OK)
           .json({ type: "success", message: "Account Deleted Successfully" });

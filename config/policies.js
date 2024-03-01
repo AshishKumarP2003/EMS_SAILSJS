@@ -18,7 +18,7 @@ module.exports.policies = {
 
     // '*': true,
     UserController: {
-        createUser: "validateUserRegister",
+        createUser: ["validateUserRegister"],
         authenticateUser: ["validateUserLogin"],
     },
 
@@ -43,6 +43,6 @@ module.exports.policies = {
         addTransaction: ["isLoggedIn", "validateTransactionAdd"],
         updateTransaction: ["isLoggedIn", "validateTransactionUpdate"],
         deleteTransaction: ["isLoggedIn", "validateTransactionDelete"],
-        searchSearch: ["isLoggedIn", "validateTransactionSearch"],
+        searchTransaction: ["isLoggedIn", "validateTransactionSearch"],
     },
 };

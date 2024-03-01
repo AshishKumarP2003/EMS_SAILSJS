@@ -34,14 +34,17 @@
                         <div class="col-12">
                             <div class="d-flex justify-content-between">
                                 <a class="btn align-self-left bg-white" onclick = "back()" >Back</a>
+
+                                
                                 <a class="btn align-self-right bg-white" href="#addTransaction">Add Transaction</a>
 
                             </div>
+                            
                             <div class="card mb-4">
                                 
                                 <div class="card-header d-flex justify-content-between pb-0" style="flex-wrap: wrap;">
                                     <h6 class="align-self-left">Transactions</h6>
-
+                                    
                                     <!-- Search Box -->
                                     <div class="search-box align-self-center">
                                         <input type="text" class="search-input" id="search_input"
@@ -60,6 +63,9 @@
                                             <!-- Table Head -->
                                             <thead>
                                                 <tr>
+                                                    <th
+                                                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                        Srno</th>
                                                     <th
                                                         class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                         Category</th>
@@ -95,6 +101,11 @@
                                                     </tr>
                                                     <% } transactionData.forEach(function(row) { %>
                                                         <tr>
+                                                            <td class="align-middle text-center">
+                                                                <span class="text-secondary text-xs font-weight-bold">
+                                                                    <%= row.srNo %>
+                                                                </span>
+                                                            </td>
                                                             <td>
                                                                 <div class="d-flex px-2 py-1">
                                                                     <div
@@ -192,6 +203,15 @@
                                             </tfoot>
                                         </table>
                                     </div>
+                                </div>
+                                <div class="d-flex justify-content-between search-box m-2">
+                                    <button class="align-self-left p-1 px-2 bg-secondary left-arrow" onclick="goTo('<%= (parseInt(pageNo)-1) %>')">
+                                        <i class="fa fa-arrow-left text-white" aria-hidden="true"></i>
+                                    </button>
+                                    <div class="align-self-center text-center">Page <span id="pageNo"><%= pageNo %></span></div>
+                                    <button class="bg-secondary p-1 px-2 right-arrow" id="search_button" onclick="goTo('<%= (parseInt(pageNo) + 1) %>')">
+                                        <i class="fa fa-arrow-right text-white" aria-hidden="true"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -355,6 +375,8 @@
                 }
                 Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
             }
+
+
         </script>
         <!-- Github buttons -->
         <script async defer src="https://buttons.github.io/buttons.js"></script>

@@ -21,16 +21,29 @@ module.exports = {
   index: async (req, res) => {
     let transactionData = [];
     let totalAmount = 0;
+
+    // Paginations
+    let pageNo = req.query.page || 1;
+    let pageSize = 3;
+
+    console.log("pageNo => ", pageNo)
+
+    if (pageNo < 0) {
+      pageNo = 1;
+    } 
     console.log(req.params.id);
     try {
-      const data = await Transaction.find().where({
+      const data = await Transaction.find().sort('datetime DESC').skip((pageNo-1)*pageSize).limit(pageSize).where({
         accountId: req.params.id,
       });
       console.log(data);
       if (data) {
         transactionData = data;
+        for( let i = 0; i < data.length; i++ ) {
+          transactionData[i].srNo = (pageNo-1) * 10 + i + 1;
+        }
       }
-
+      console.log(transactionData)
       const account = await Account.findOne().where({ id: req.params.id });
       if (account) {
         totalAmount = account.currentBalance;
@@ -45,6 +58,7 @@ module.exports = {
       user: req.user,
       transactionData: transactionData,
       totalAmount: totalAmount,
+      pageNo: pageNo
     });
   },
 
@@ -196,6 +210,11 @@ module.exports = {
           category: { contains: req.body.category },
       });
       if (transactionsList) {
+
+        for (let i = 0; i < transactionsList.length; i++) {
+          transactionsList[i].srNo = i+1
+        }
+        console.log(transactionsList);
         res.json({ type: "success", data: transactionsList });
       } else {
         return [];

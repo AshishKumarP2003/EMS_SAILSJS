@@ -27,6 +27,10 @@ const table_row = (row) => {
 
 
     return `<tr>
+    <td class="align-middle text-center">
+        <span
+            class="text-secondary text-xs font-weight-bold">${row.srNo}</span>
+    </td>
     <td>
         <div class="d-flex px-2 py-1">
             <div class="d-flex flex-column justify-content-center">
@@ -99,7 +103,7 @@ document.getElementById("search_button").addEventListener('click', () => {
         },
         body: JSON.stringify({
             category: searchText,
-            accountId: window.location.href.split('/')[4].split('#')[0]
+            accountId: window.location.href.split('/')[4].split('#')[0].split('?')[0]
 
         })
     }).then(data => {

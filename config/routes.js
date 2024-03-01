@@ -20,8 +20,9 @@ module.exports.routes = {
   ***************************************************************************/
 
   'GET /': { view: 'pages/index' },
-  'GET /register': { view: 'pages/register' },
-  'GET /login': { view: 'pages/login' },
+  'GET /register': { view: 'pages/register', policy: 'isLoggedIn' },
+  'GET /login': { view: 'pages/login', policy: 'isLoggedIn' },
+  'GET /logout' : 'UserController.logout',
   'GET /dashboard': 'DashboardController.index',
   'GET /account': 'AccountController.index',
   'GET /account/:id': 'AccountOverviewController.index',

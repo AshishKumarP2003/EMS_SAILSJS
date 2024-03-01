@@ -5,7 +5,7 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
-const { jwt, dotenv, bcrypt } = sails.config.requirements;
+const { jwt, dotenv, bcrypt } = sails.config.constants.Requirement;
 const ResponseCode = sails.config.constants.ResponseCode;
 dotenv.config();
 
@@ -89,7 +89,8 @@ module.exports = {
                             res.cookie('Authorization', token, {
                                 path: '/',
                                 maxAge: 1*60*60*1000,
-                                secure: true
+                                secure: true,
+                                httpOnly: true
                               });
                               console.log("Rd")
                             res
@@ -117,4 +118,18 @@ module.exports = {
             res.status(ResponseCode.SERVER_ERROR).json({ type: "error", message: "Something went wrong" });
         }
     },
+
+    /**
+     * @name logout
+     * @file UserController.js
+     * @param {Request} req
+     * @param {Response} res
+     * @throws None
+     * @description This method will clear Authorization cookie and redirect to /login
+     * @author Ashish Kumar Patel (Zignuts)
+     */
+    logout: async (req, res) => {
+        res.clearCookie('Authorization');
+        res.redirect('/login')
+    }
 };
