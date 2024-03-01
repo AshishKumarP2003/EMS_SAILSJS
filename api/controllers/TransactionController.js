@@ -24,7 +24,7 @@ module.exports = {
 
     // Paginations
     let pageNo = req.query.page || 1;
-    let pageSize = 3;
+    let pageSize = 10;
 
     console.log("pageNo => ", pageNo)
 
