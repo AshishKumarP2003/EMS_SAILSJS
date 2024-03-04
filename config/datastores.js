@@ -12,6 +12,7 @@
  * For more information on configuring datastores, check out:
  * https://sailsjs.com/config/datastores
  */
+require('dotenv').config();
 
 module.exports.datastores = {
 
@@ -52,7 +53,7 @@ module.exports.datastores = {
     // url: 'mysql://user:password@host:port/database',
 
     adapter: 'sails-mongo',
-    url: 'mongodb://localhost:27017/expense_book',
+    url: process.env.DB_URL,
   },
 
 

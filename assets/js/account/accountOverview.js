@@ -43,7 +43,6 @@ document.getElementById("accountEditForm").addEventListener("submit", (e) => {
 
     const formData = new FormData(e.target);
     let data = Object.fromEntries(formData.entries());
-    data.accountId = window.location.href.split('/')[4];
     console.log(data);
     console.log("typeof => ", data)
 
@@ -51,7 +50,7 @@ document.getElementById("accountEditForm").addEventListener("submit", (e) => {
         console.log("Account Form process Started");
 
         // Request UPDATE User Creation.
-        fetch('/account/update', {
+        fetch(`/account/${window.location.href.split('/')[4]}/update`, {
             method: 'PATCH',
             headers: {
                 "Content-Type": "application/json",
@@ -66,7 +65,6 @@ document.getElementById("accountEditForm").addEventListener("submit", (e) => {
                 // window.location.reload();
                 document.getElementById("submitDiv").classList.add("display-none");
                 document.getElementById("edit_button").disabled = false;
-            
                 document.getElementById("accountName").readOnly = true;
                 document.getElementById("accountType").disabled = true;
                 document.getElementById("accountNumber").readOnly = true;
@@ -90,14 +88,8 @@ const deleteAccountRecord = (accountId) => {
         console.log("Account Deletion process started");
 
         // Request Delete account Record.
-        fetch('/account/delete', {
+        fetch(`/account/${accountId}/delete`, {
             method: 'DELETE',
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                accountId: accountId
-            })
         }).then(data => {
             return data.json()
         }).then(data => {
@@ -113,6 +105,6 @@ const deleteAccountRecord = (accountId) => {
 };
 
 const redirectTo = (route) => {
-    console.log("/transaction/"+window.location.href.split('/')[4].split('#')[0])
-    window.location.href = "/transaction/"+window.location.href.split('/')[4].split('#')[0];
+    console.log("/account/"+window.location.href.split('/')[4].split('#')[0]+"/transaction")
+    window.location.href = "/account/"+window.location.href.split('/')[4].split('#')[0]+"/transaction";
 }

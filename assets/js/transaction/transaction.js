@@ -21,15 +21,15 @@ const validateTransactionForm = (formData) => {
         alert('Please Enter Transaction Category')
     } else if (formData.get('amount') == "") {
         alert("Please Enter Amount")
-    } else if ( formData.get('amount') <= 0) {
+    } else if (formData.get('amount') <= 0) {
         alert('Please Enter Correct Amount')
-    } else if ( formData.get('source') == "") {
+    } else if (formData.get('source') == "") {
         alert('Please Provide Source/ Description.')
-    } else if ( formData.get('datetime') == "") {
+    } else if (formData.get('datetime') == "") {
         alert('Please Provide Date and Time of Credit.')
-    } else if ( formData.get('paymentMethod') == '') {
+    } else if (formData.get('paymentMethod') == '') {
         alert('Please Select Payment Method')
-    } else if ( formData.get('transactionType') == '') {
+    } else if (formData.get('transactionType') == '') {
         alert('Please Select transactionType')
     } else {
         return true;
@@ -42,32 +42,29 @@ document.getElementById("editTransactionForm").addEventListener("submit", (e) =>
     e.preventDefault();
     const formData = new FormData(e.target);
     let data = Object.fromEntries(formData.entries());
-    data.accountId = window.location.href.split('/')[4].split('#')[0]
-    console.log(window.location.href.split('/')[4].split('#')[0])
-    console.log(data.accountId)
 
-    // if (validateTransactionForm(formData)) {
-        console.log("Transaction Form Submission process Started");
+    console.log(data)
+    console.log("Transaction Form Submission process Started");
 
-        // Request New User Creation.
-        fetch('/transaction/update', {
-            method: 'PATCH',
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data)
-        }).then(data => {
-            return data.json()
-        }).then(data => {
-            console.log(data);
-            alert(data.message);
-            if (data.type == 'success') {
-                window.location.href = window.location.href.split('#')[0]
+    // Request New User Creation.
+    fetch(`/account/${window.location.href.split('/')[4].split('#')[0].split('?')[0]}/transaction/${data.transactionId}/update`, {
+        method: 'PATCH',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+    }).then(data => {
+        return data.json()
+    }).then(data => {
+        console.log(data);
+        alert(data.message);
+        if (data.type == 'success') {
+            window.location.href = window.location.href.split('#')[0]
 
-            }
-        }).catch(err => {
-            console.log(err)
-        });
+        }
+    }).catch(err => {
+        console.log(err)
+    });
     // }
 });
 
@@ -83,35 +80,35 @@ document.getElementById("transactionForm").addEventListener("submit", (e) => {
 
     // Validating Form.
     // if (validateTransactionForm(formData)) {
-        console.log("Transaction Form Submission process Started");
+    console.log("Transaction Form Submission process Started");
 
-        // Request New User Creation.
-        fetch('/transaction/add', {
-            method: 'PUT',
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                accountId: window.location.href.split('/')[4].split('#')[0],
-                category: formData.get('category'),
-                amount: formData.get('amount'),
-                source: formData.get('source'),
-                datetime: formData.get('datetime'),
-                paymentMethod: formData.get('paymentMethod'),
-                recipientName: formData.get('recipientName'),
-                transactionType: formData.get('transactionType')
-            })
-        }).then(data => {
-            return data.json()
-        }).then(data => {
-            console.log(data);
-            alert(data.message);
-            if (data.type == 'success') {
-                window.location.href = window.location.href.split('#')[0]
-            }
-        }).catch(err => {
-            console.log(err)
-        });
+    // Request New User Creation.
+    fetch(`/account/${window.location.href.split('/')[4].split('#')[0].split('?')[0]}/transaction/add`, {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            accountId: window.location.href.split('/')[4].split('#')[0],
+            category: formData.get('category'),
+            amount: formData.get('amount'),
+            source: formData.get('source'),
+            datetime: formData.get('datetime'),
+            paymentMethod: formData.get('paymentMethod'),
+            recipientName: formData.get('recipientName'),
+            transactionType: formData.get('transactionType')
+        })
+    }).then(data => {
+        return data.json()
+    }).then(data => {
+        console.log(data);
+        alert(data.message);
+        if (data.type == 'success') {
+            window.location.href = window.location.href.split('#')[0]
+        }
+    }).catch(err => {
+        console.log(err)
+    });
     // }
 });
 
@@ -123,19 +120,10 @@ const deleteTransactionRecord = (transactionId) => {
     if (confirm("Are you sure you want to delete this record?")) {
         console.log("Transaction Deletion process started");
 
-        const data = JSON.stringify({
-            transactionId: transactionId,
-            accountId: window.location.href.split('/')[4].split('#')[0].split('?')[0]
-        });
-        console.log(data);
 
         // Request Delete Transaction Record.
-        fetch('/transaction/delete', {
+        fetch(`/account/${window.location.href.split('/')[4].split('#')[0].split('?')[0]}/transaction/${transactionId}/delete`, {
             method: 'DELETE',
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: data
         }).then(data => {
             return data.json()
         }).then(data => {

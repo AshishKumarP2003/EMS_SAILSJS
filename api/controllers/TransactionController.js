@@ -74,7 +74,6 @@ module.exports = {
   addTransaction: async (req, res) => {
     console.log("Body: ", req.body);
     const {
-      accountId,
       category,
       amount,
       source,
@@ -86,7 +85,7 @@ module.exports = {
 
     try {
       const add = await Transaction.create({
-        accountId: accountId,
+        accountId: req.params.id,
         category: category,
         amount: parseFloat(amount),
         source: source,
@@ -97,7 +96,7 @@ module.exports = {
       }).fetch();
       console.log(add);
       if (add) {
-        await sails.config.services.balance.updateBalance(accountId);
+        await sails.config.services.balance.updateBalance(req.params.id);
         res
           .status(ResponseCode.OK)
           .json({ type: "success", message: "Transaction Added Successfully" });
@@ -124,11 +123,9 @@ module.exports = {
       paymentMethod,
       recipientName,
       transactionType,
-      transactionId,
-      accountId,
     } = req.body;
     try {
-      const update = await Transaction.updateOne({ id: transactionId }).set({
+      const update = await Transaction.updateOne({ id: req.params.transactionId }).set({
         category: category,
         amount: amount,
         source: source,
@@ -139,7 +136,7 @@ module.exports = {
       });
       console.log(update);
       if (update) {
-        await sails.config.services.balance.updateBalance(accountId);
+        await sails.config.services.balance.updateBalance(req.params.id);
 
         res.status(ResponseCode.OK).json({
           type: "success",
@@ -171,11 +168,11 @@ module.exports = {
     try {
       console.log(req.body)
       const add = await Transaction.destroyOne({
-        id: req.body.transactionId,
+        id: req.params.transactionId,
       });
       console.log(add);
       if (add) {
-        await sails.config.services.balance.updateBalance(req.body.accountId);
+        await sails.config.services.balance.updateBalance(req.params.id);
         res.status(200).json({
           type: "success",
           message: "Transaction Deleted Successfully",
@@ -206,7 +203,7 @@ module.exports = {
     console.log(req.body);
     try {
       const transactionsList = await Transaction.find().where({
-          accountId: req.body.accountId,
+          accountId: req.params.id,
           category: { contains: req.body.category },
       });
       if (transactionsList) {

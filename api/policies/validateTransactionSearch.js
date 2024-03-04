@@ -4,7 +4,6 @@ const { body } = sails.config.constants.Requirement.expressValidator;
 module.exports = async (req, res, proceed) => {
     // Search Transaction Validation Rules for Incoming Data
     const searchTransactionsRules = [
-        body('accountId').notEmpty().withMessage('Account Id is required'),
         body('category').notEmpty().withMessage('Search Text is required')
     ];
 

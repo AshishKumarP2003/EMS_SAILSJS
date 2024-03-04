@@ -34,15 +34,15 @@ module.exports.policies = {
 
     AccountOverviewController: {
         index: ["isLoggedIn", "isValidAccount"],
-        updateAccount: ["isLoggedIn", "validateAccountUpdate"],
-        deleteAccount: ["isLoggedIn", "validateAccountDelete"],
+        updateAccount: ["isLoggedIn", "isValidAccount", "validateAccountUpdate"],
+        deleteAccount: ["isLoggedIn", "isValidAccount"],
     },
 
     TransactionController: {
         index: ["isLoggedIn", "isValidAccount"],
-        addTransaction: ["isLoggedIn", "validateTransactionAdd"],
-        updateTransaction: ["isLoggedIn", "validateTransactionUpdate"],
-        deleteTransaction: ["isLoggedIn", "validateTransactionDelete"],
-        searchTransaction: ["isLoggedIn", "validateTransactionSearch"],
+        addTransaction: ["isLoggedIn", "isValidAccount", "validateTransactionAdd"],
+        updateTransaction: ["isLoggedIn", "isValidAccount", "isValidTransaction", "validateTransactionUpdate"],
+        deleteTransaction: ["isLoggedIn", "isValidAccount", "isValidTransaction"],
+        searchTransaction: ["isLoggedIn", "isValidAccount", "validateTransactionSearch"],
     },
 };

@@ -4,8 +4,6 @@ const { body } = sails.config.constants.Requirement.expressValidator;
 module.exports = async (req, res, proceed) => {
     // Update Transaction Validation Rules for Incoming Data
     const updateTransactionRules = [
-        body("transactionId").notEmpty().withMessage("Invalid Transaction Id"), 
-        body("accountId").notEmpty().withMessage("Invalid Account Id"),
         body("category").notEmpty().withMessage("Please enter Category"),
         body("amount").notEmpty().withMessage("Please provide amount"),
         body("source").notEmpty().withMessage("Source is required"),

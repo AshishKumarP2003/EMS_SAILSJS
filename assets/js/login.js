@@ -39,11 +39,11 @@ document.getElementById("loginForm").addEventListener("submit", (e) => {
         }).then(data => {
             console.log(data);
             if (data.url) {
-                window.location.href = data.url
+                window.location.href = data.url;
             }
             alert(data.message)
         }).catch(err => {
-            console.log(err)
+            console.log(err);
         });
     }
 });

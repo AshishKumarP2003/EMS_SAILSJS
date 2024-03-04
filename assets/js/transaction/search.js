@@ -96,18 +96,16 @@ document.getElementById("search_button").addEventListener('click', () => {
     console.log(searchText);
 
     // Request New User Creation.
-    fetch('/transaction/search', {
+    fetch(`/account/${window.location.href.split('/')[4].split('#')[0].split('?')[0]}/transaction/search`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
             category: searchText,
-            accountId: window.location.href.split('/')[4].split('#')[0].split('?')[0]
-
         })
     }).then(data => {
-        return data.json()
+        return data.json();
     }).then(data => {
         
         console.log(data);

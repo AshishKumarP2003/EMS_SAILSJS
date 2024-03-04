@@ -5,7 +5,6 @@ module.exports = async (req, res, proceed) => {
     // Search Accounts Validation Rules for Incoming Data
     const searchAccountsRules = [
         body("accountName").notEmpty().withMessage("Search Text is required"),
-        
     ];
 
     await sails.config.services.validator.validate(

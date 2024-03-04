@@ -4,7 +4,6 @@ const { body } = sails.config.constants.Requirement.expressValidator;
 module.exports = async (req, res, proceed) => {
     // Update Account Validation Rules for Incoming Data
     const updateAccountRules = [
-        body("accountId").notEmpty().withMessage("Account Id is Required"),
         body("accountName").notEmpty().withMessage("Account Name is Required"),
         body("accountType").notEmpty().withMessage("Account Type is Required"),
         body("accountType").isIn(["Saving", "Current", "Cash Account", "Credit Card", "Other"]),

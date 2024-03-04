@@ -23,7 +23,6 @@ module.exports = async (req, res, proceed) => {
         if (!token) {
             return res.redirect("/login");
         }
-
         // Verify the token.
         try {
             // Check if there is any user with this token.
