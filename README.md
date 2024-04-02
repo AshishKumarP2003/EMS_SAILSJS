@@ -28,15 +28,14 @@ Expense Management System is a web application developed using Sails.js and Mong
 
    ```env
    JWT_SECRET_KEY = "Your_JWT_Secret_Key"
+   DB_URL = "Your_Database_Url"
    ```
-
    Adjust the values based on your preferences.
 4. **Run the application:**
 
    ```bash
    npm start
    ```
-
    Access the application in your web browser at [http://localhost:3000](http://localhost:3000) (or the specified port).
 5. **Access the application:**
 
